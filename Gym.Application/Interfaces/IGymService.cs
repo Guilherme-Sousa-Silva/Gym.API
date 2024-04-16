@@ -5,7 +5,7 @@ namespace Gym.Application.Interfaces
 {
     public interface IGymService
     {
-        Task<IList<GymDTO>> GetAllAsync();
+        Task<ListResponse<GymDTO>> GetAllAsync();
         Task<ResultService<GymDTO>> GetByIdAsync(Guid id);
         Task<ResultService<GymDTO>> CreateAsync(CreateGymDTO createGymDTO);
         Task<ResultService<GymDTO>> UpdateAsync(GymDTO gymDto);

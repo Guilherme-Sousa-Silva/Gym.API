@@ -18,11 +18,11 @@ namespace Gym.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IList<GymDTO>> GetAllAsync()
+        public async Task<ListResponse<GymDTO>> GetAllAsync()
         {
             var gyms = await _repository.GetAllAsync();
             var gymsToDto = _mapper.Map<IList<GymDTO>>(gyms);
-            return gymsToDto;
+            return ListResponse.Ok<GymDTO>(gymsToDto);
         }
 
         public async Task<ResultService<GymDTO>> GetByIdAsync(Guid id)

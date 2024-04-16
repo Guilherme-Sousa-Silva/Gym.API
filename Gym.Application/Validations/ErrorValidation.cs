@@ -2,6 +2,11 @@
 {
     public class ErrorValidation
     {
+        public ErrorValidation(string message)
+        {
+            Message = message;
+        }
+
         public ErrorValidation(string field, string message)
         {
             Field = field;

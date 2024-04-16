@@ -38,6 +38,7 @@ namespace Gym.Application.Services
             };
         }
 
+
         public static ResultService<T> RequestError<T>(string message, ValidationResult validationResult)
         {
             return new ResultService<T>

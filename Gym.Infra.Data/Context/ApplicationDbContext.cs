@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Gym.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gym.Infra.Data.Context
 {
@@ -10,6 +11,8 @@ namespace Gym.Infra.Data.Context
         }
 
         public DbSet<Domain.Entities.Gym> Gyms { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
