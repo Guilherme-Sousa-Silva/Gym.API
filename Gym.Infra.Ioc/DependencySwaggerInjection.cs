@@ -13,7 +13,7 @@ namespace Gym.Infra.Ioc
             {
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
-                    Name = "Authorizaton",
+                    Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
                     BearerFormat = "JWT",

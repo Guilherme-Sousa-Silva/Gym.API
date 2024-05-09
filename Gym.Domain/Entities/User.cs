@@ -9,5 +9,11 @@
         public byte[] PasswordHash { get; private set; }
         public byte[] PasswordSalt { get; private set; }
         public Role Role { get; private set; }
+
+        public void SetPasswordHash(byte[] passwordHash, byte[] passwordSalt)
+        {
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+        }
     }
 }

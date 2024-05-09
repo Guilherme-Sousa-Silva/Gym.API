@@ -10,12 +10,15 @@ namespace Gym.Infra.Ioc
     {
         public static IServiceCollection addJwtStructure(this IServiceCollection services, IConfiguration configuration)
         {
+            //informar o tipo de autenticação JWT-Bearer
+            //definir modelo de desafio de autenticação
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-
+            //habilitar a autenticação JWT usando o esquema e desafio definidos
+            //validar o token
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters

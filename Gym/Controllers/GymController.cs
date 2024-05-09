@@ -1,5 +1,8 @@
-﻿using Gym.Application.DTOs.Gym;
+﻿using Gym.API.Models;
+using Gym.Application.DTOs.Gym;
 using Gym.Application.Interfaces;
+using Gym.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +19,9 @@ namespace Gym.API.Controllers
             _Gymservice = gymservice;
         }
 
+
         [HttpGet("get-all")]
+        [Authorize(Roles = Roles.Representante)]
         public async Task<IActionResult> GetAllAsync()
         {
             return Ok(await _Gymservice.GetAllAsync());

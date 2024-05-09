@@ -6,7 +6,7 @@ namespace Gym.Domain.Interfaces
     {
         Task<bool> AuthenticateAsync(string email, string password);
         Task<bool> UserExist(string email);
-        Task<string> GenerateToken(string email, string password);
+        Task<string> GenerateToken(string email, Guid id);
         Task<User> GetUserByEmail(string email);
     }
 }

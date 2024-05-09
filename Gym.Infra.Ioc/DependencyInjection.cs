@@ -32,7 +32,8 @@ namespace Gym.Infra.Ioc
 
             // user
             services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddScoped<IUserService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthenticate, AuthenticateService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
 

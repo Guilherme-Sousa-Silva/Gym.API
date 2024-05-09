@@ -15,11 +15,13 @@ namespace Gym.Infra.Data.Identity
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IRoleRepository _roleRepository;
 
-        public AuthenticateService(ApplicationDbContext context, IConfiguration configuration)
+        public AuthenticateService(ApplicationDbContext context, IConfiguration configuration, IRoleRepository roleRepository)
         {
             _context = context;
             _configuration = configuration;
+            _roleRepository = roleRepository;
         }
 
         public async Task<bool> AuthenticateAsync(string email, string password)
@@ -37,17 +39,20 @@ namespace Gym.Infra.Data.Identity
                 if (computedHash[x] != user.PasswordHash[x]) return false;
             }
 
-            return false;
+            return true;
         }
 
-        public async Task<string> GenerateToken(string email, string senha)
+        public async Task<string> GenerateToken(string email, Guid id)
         {
             var user = await GetUserByEmail(email);
+            var role = await _roleRepository.GetById(user.RoleId);
+
             var claims = new[]
             {
                 new Claim("id", user.Id.ToString()),
-                new Claim("email", user.Email),
-                new Claim("role", user.RoleId.ToString()),
+                new Claim("email", user.Email.ToLower()),
+                new Claim("name", user.Name.ToLower()),
+                new Claim("role", role.Name),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -64,7 +69,6 @@ namespace Gym.Infra.Data.Identity
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-
         }
 
         public async Task<bool> UserExist(string email)
@@ -83,7 +87,7 @@ namespace Gym.Infra.Data.Identity
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
             if(user == null)
             {
-                throw new Exception("");
+                throw new Exception($"Usuário não encontrado pelo Email: {email}");
             }
 
             return user;
