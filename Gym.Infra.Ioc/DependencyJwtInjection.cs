@@ -34,6 +34,16 @@ namespace Gym.Infra.Ioc
                 };
             });
 
+            // Definição da política de autorização
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RepresentantePolicy", policy =>
+                    policy.RequireRole(Roles.Representante));
+
+                options.AddPolicy("AdminPolicy", policy =>
+                    policy.RequireRole(Roles.Administrador));
+            });
+
             return services;
         }
     }

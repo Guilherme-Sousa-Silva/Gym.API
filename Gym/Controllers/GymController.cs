@@ -1,6 +1,7 @@
 ﻿using Gym.API.Models;
 using Gym.Application.DTOs.Gym;
 using Gym.Application.Interfaces;
+using Gym.Application.Services;
 using Gym.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,10 +22,16 @@ namespace Gym.API.Controllers
 
 
         [HttpGet("get-all")]
-        [Authorize(Roles = Roles.Representante)]
+        [Authorize(Policy = "RepresentantePolicy")]
         public async Task<IActionResult> GetAllAsync()
         {
-            return Ok(await _Gymservice.GetAllAsync());
+            try
+            {
+                return Ok(await _Gymservice.GetAllAsync());
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ListResponse.Fail<GymDTO>("Ocorreu um erro ao processar sua solicitação."));
+            }
         }
 
         [HttpGet("get-by-id/{id:Guid}")]

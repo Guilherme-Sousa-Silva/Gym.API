@@ -21,6 +21,12 @@ namespace Gym.Application.Services
         public async Task<ListResponse<GymDTO>> GetAllAsync()
         {
             var gyms = await _repository.GetAllAsync();
+
+            if (gyms.Count == 0)
+            {
+                return ListResponse.Fail<GymDTO>("Nenhuma academia encontrada!");
+            }
+
             var gymsToDto = _mapper.Map<IList<GymDTO>>(gyms);
             return ListResponse.Ok<GymDTO>(gymsToDto);
         }

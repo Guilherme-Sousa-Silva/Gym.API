@@ -7,6 +7,7 @@ namespace Gym.Application.Services
     {
         public bool IsSuccess { get; set; }
         public ICollection<ErrorValidation> Errors { get; set; }
+        public string Message { get; set; }
 
         public static ListResponse<T> RequestError<T>(string message, ValidationResult validationResult)
         {
@@ -23,6 +24,16 @@ namespace Gym.Application.Services
             {
                 Data = data,
                 IsSuccess = true,
+            };
+        }
+
+        public static ListResponse<T> Fail<T>(string message)
+        {
+            return new ListResponse<T>
+            {
+                Data = null,
+                IsSuccess = true,
+                Message = message
             };
         }
     }
