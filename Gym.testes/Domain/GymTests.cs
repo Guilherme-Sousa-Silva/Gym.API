@@ -5,7 +5,7 @@ namespace Gym.testes.Domain
     public class GymTests
     {
         [Fact]
-        public void CreateGymSuccess()
+        public void Create_Gym_Return_Success()
         {
             // Arrange
             var cnpj = "24123123123";
@@ -22,7 +22,7 @@ namespace Gym.testes.Domain
         }
 
         [Fact]
-        public void CreateGymWithCnpjNullShouldReturnError()
+        public void Create_Gym_With_Cnpj_Null_Should_Return_Error()
         {
             // Arrange
             var cnpj = "";
@@ -34,7 +34,38 @@ namespace Gym.testes.Domain
             var validate = gym.Validate(gym);
 
             // Assert
-            Assert.Equal(validate, false);
+            Assert.False(validate);
+        }
+
+        [Fact]
+        public void Create_Gym_With_RazaoSocial_Null_Should_Return_Error()
+        {
+            // Arrange
+            var cnpj = "2154561525";
+            var razaoSocail = "";
+            var nomeFantasia = "Nome Fantasia Teste";
+
+            // Act
+            var gym = new Gym.Domain.Entities.Gym(cnpj, razaoSocail, nomeFantasia);
+            var validate = gym.Validate(gym);
+
+            // Assert
+            Assert.False(validate);
+        }
+
+        [Fact]
+        public void Create_Gym_With_NomeFantasia_Null_Should_Return_Error()
+        {
+            // Arrange
+            var cnpj = "2154561525";
+            var razaoSocail = "teste";
+            var nomeFantasia = "";
+
+            // Act
+            var gym = new Gym.Domain.Entities.Gym(cnpj, razaoSocail, nomeFantasia);
+            var validate = gym.Validate(gym);
+
+            // Assert
             Assert.False(validate);
         }
     }

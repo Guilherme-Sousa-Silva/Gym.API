@@ -2,6 +2,13 @@
 {
     public class User
     {
+        public User(string name, string email)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Email = email;
+        }
+
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
@@ -14,6 +21,15 @@
         {
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
+        }
+
+        public bool Validate(User user)
+        {
+            if (user == null) return false;
+            if (string.IsNullOrEmpty(user.Name)) return false;
+            if (string.IsNullOrEmpty(user.Email)) return false;
+
+            return true;
         }
     }
 }
